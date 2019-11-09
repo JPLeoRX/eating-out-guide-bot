@@ -2,6 +2,7 @@ package com.tekleo.eating_out_guide_bot;
 
 import com.tekleo.eating_out_guide_bot.review.*;
 import com.tekleo.eating_out_guide_bot.review.enums.Budget;
+import com.tekleo.eating_out_guide_bot.review.enums.Confirmation;
 import com.tekleo.eating_out_guide_bot.review.enums.Cuisine;
 import com.tekleo.eating_out_guide_bot.review.enums.Score;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
@@ -15,10 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class MyBot extends TelegramLongPollingBot {
     private static final ConcurrentHashMap<Long, State> chatStates = new ConcurrentHashMap<>();
@@ -37,28 +35,6 @@ public class MyBot extends TelegramLongPollingBot {
 
         ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
         markup.setKeyboard(Arrays.asList(row1));
-        markup.setOneTimeKeyboard(true);
-
-        return markup;
-    }
-
-
-
-
-
-    private ReplyKeyboardMarkup getScoreKeyboard() {
-        KeyboardButton button1 = new KeyboardButton(Score.ONE.getButtonText());
-        KeyboardButton button2 = new KeyboardButton(Score.TWO.getButtonText());
-        KeyboardButton button3 = new KeyboardButton(Score.THREE.getButtonText());
-        KeyboardButton button4 = new KeyboardButton(Score.FOUR.getButtonText());
-        KeyboardButton button5 = new KeyboardButton(Score.FIVE.getButtonText());
-
-        KeyboardRow row1 = BotHelpers.buildKeyboardRow(button1, button2);
-        KeyboardRow row2 = BotHelpers.buildKeyboardRow(button3, button4);
-        KeyboardRow row3 = BotHelpers.buildKeyboardRow(button5);
-
-        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
-        markup.setKeyboard(Arrays.asList(row1, row2, row3));
         markup.setOneTimeKeyboard(true);
 
         return markup;
@@ -150,7 +126,11 @@ public class MyBot extends TelegramLongPollingBot {
 
         else if (chatStates.get(update.getMessage().getChatId()) == State.REQUESTED_TEXT) {
             acceptText(update);
-            finishForm(update);
+            requestConfirmation(update);
+        }
+
+        else if (chatStates.get(update.getMessage().getChatId()) == State.REQUESTED_CONFIRMATION) {
+            acceptConfirmation(update);
         }
     }
 
@@ -211,6 +191,20 @@ public class MyBot extends TelegramLongPollingBot {
         formBuilders.get(update.getMessage().getChatId()).setText(update.getMessage().getText());
     }
 
+    private void acceptConfirmation(Update update) {
+        System.out.println("Confirmation: " + update.getMessage().getText());
+
+        // If submitted
+        if (Confirmation.YES.getButtonText().equals(update.getMessage().getText())) {
+            finishForm(update);
+        }
+
+        // If cancelled
+        else if (Confirmation.NO_CANCEL.getButtonText().equals(update.getMessage().getText())) {
+            cancelForm(update);
+        }
+    }
+
     private void requestName(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_NAME);
         String text = "Enter name: ";
@@ -245,7 +239,7 @@ public class MyBot extends TelegramLongPollingBot {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_SCORE);
         String text = "Enter score: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(getScoreKeyboard());
+        message.setReplyMarkup(BotUi.getScoreKeyboard());
         sendMessage(message);
     }
 
@@ -256,16 +250,21 @@ public class MyBot extends TelegramLongPollingBot {
         sendMessage(message);
     }
 
-    private void requestPrivacy(Update update) {
-        chatStates.put(update.getMessage().getChatId(), State.REQUESTED_PRIVACY);
-        String text = "Send anonymously: ";
+    private void requestConfirmation(Update update) {
+        chatStates.put(update.getMessage().getChatId(), State.REQUESTED_CONFIRMATION);
+        ReviewForm reviewForm = formBuilders.get(update.getMessage().getChatId()).build();
+        ReviewMessage reviewMessage = new ReviewMessage(reviewForm);
+        String text = "Confirm your review?\n\n\n" + reviewMessage.getMessageText();
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
+        message.setParseMode(ParseMode.HTML);
+        message.setReplyMarkup(BotUi.getConfirmationKeyboard());
         sendMessage(message);
     }
 
     private void finishForm(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.IDLE);
-        String text = "Thanks for your review ";
+        String text = "Thanks for your review";
+
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setReplyMarkup(getReplyKeyboard());
         sendMessage(message);
@@ -273,9 +272,17 @@ public class MyBot extends TelegramLongPollingBot {
         ReviewForm reviewForm = formBuilders.get(update.getMessage().getChatId()).build();
         ReviewMessage reviewMessage = new ReviewMessage(reviewForm);
 
-        SendMessage message2 = new SendMessage(update.getMessage().getChatId(), reviewMessage.getMessageText());
+        SendMessage message2 = new SendMessage(Constants.CHANNEL_USERNAME, reviewMessage.getMessageText());
         message2.setParseMode(ParseMode.HTML);
         sendMessage(message2);
+    }
+
+    private void cancelForm(Update update) {
+        chatStates.put(update.getMessage().getChatId(), State.IDLE);
+        String text = "Review cancelled";
+        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
+        message.setReplyMarkup(getReplyKeyboard());
+        sendMessage(message);
     }
     //------------------------------------------------------------------------------------------------------------------
 
