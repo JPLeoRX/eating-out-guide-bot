@@ -42,27 +42,9 @@ public class MyBot extends TelegramLongPollingBot {
         return markup;
     }
 
-    private ReplyKeyboardMarkup getCuisineKeyboard() {
-        List<KeyboardButton> buttons = Stream.of(Cuisine.values()).map(c -> new KeyboardButton(c.getButtonText())).collect(Collectors.toList());
-        List<KeyboardRow> rows = BotHelpers.buildKeyboardRowsWith2ButtonsInRow(buttons);
-        return BotHelpers.buildKeyboardMarkupOneTime(rows);
-    }
 
-    private ReplyKeyboardMarkup getBudgetKeyboard() {
-        KeyboardButton button1 = new KeyboardButton(Budget.CHEAP.getButtonText());
-        KeyboardButton button2 = new KeyboardButton(Budget.AVERAGE.getButtonText());
-        KeyboardButton button3 = new KeyboardButton(Budget.EXPENSIVE.getButtonText());
 
-        KeyboardRow row1 = BotHelpers.buildKeyboardRow(button1);
-        KeyboardRow row2 = BotHelpers.buildKeyboardRow(button2);
-        KeyboardRow row3 = BotHelpers.buildKeyboardRow(button3);
 
-        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
-        markup.setKeyboard(Arrays.asList(row1, row2, row3));
-        markup.setOneTimeKeyboard(true);
-
-        return markup;
-    }
 
     private ReplyKeyboardMarkup getScoreKeyboard() {
         KeyboardButton button1 = new KeyboardButton(Score.ONE.getButtonText());
@@ -240,7 +222,7 @@ public class MyBot extends TelegramLongPollingBot {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_CUISINE);
         String text = "Enter cuisine: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(getCuisineKeyboard());
+        message.setReplyMarkup(BotUi.getCuisineKeyboard());
         sendMessage(message);
     }
 
@@ -248,7 +230,7 @@ public class MyBot extends TelegramLongPollingBot {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_BUDGET);
         String text = "Enter budget: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(getBudgetKeyboard());
+        message.setReplyMarkup(BotUi.getBudgetKeyboard());
         sendMessage(message);
     }
 

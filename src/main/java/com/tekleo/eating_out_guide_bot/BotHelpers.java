@@ -16,6 +16,17 @@ public class BotHelpers {
         return row;
     }
 
+    public static List<KeyboardRow> buildKeyboardRowsWith1ButtonInRow(List<KeyboardButton> buttons) {
+        List<KeyboardRow> rows = new ArrayList<>();
+        for (KeyboardButton button : buttons)
+            rows.add(buildKeyboardRow(button));
+        return rows;
+    }
+
+    public static List<KeyboardRow> buildKeyboardRowsWith1ButtonInRow(KeyboardButton ... buttons) {
+        return buildKeyboardRowsWith1ButtonInRow(Arrays.asList(buttons));
+    }
+
     public static List<KeyboardRow> buildKeyboardRowsWith2ButtonsInRow(List<KeyboardButton> buttons) {
         List<KeyboardRow> rows = new ArrayList<>();
 

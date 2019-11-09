@@ -1,9 +1,11 @@
 package com.tekleo.eating_out_guide_bot.review.enums;
 
+import com.tekleo.eating_out_guide_bot.Emoji;
+
 public enum Budget {
-    CHEAP("Cheap", "$"),
-    AVERAGE("Average", "$$"),
-    EXPENSIVE("Expensive", "$$$");
+    CHEAP("Cheap", Emoji.DOLLAR.getText()),
+    AVERAGE("Average", Emoji.DOLLAR.getText() + Emoji.DOLLAR.getText()),
+    EXPENSIVE("Expensive", Emoji.DOLLAR.getText() + Emoji.DOLLAR.getText() + Emoji.DOLLAR.getText());
 
     private String text;
     private String buttonText;
