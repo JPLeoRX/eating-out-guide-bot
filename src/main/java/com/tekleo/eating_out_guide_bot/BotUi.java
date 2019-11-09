@@ -14,6 +14,12 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class BotUi {
+    public static ReplyKeyboardMarkup getReplyKeyboard() {
+        List<KeyboardButton> buttons = Arrays.asList(new KeyboardButton(Constants.BUTTON_SUBMIT_NEW_REVIEW));
+        List<KeyboardRow> rows = BotHelpers.buildKeyboardRowsWith2ButtonsInRow(buttons);
+        return BotHelpers.buildKeyboardMarkupOneTime(rows);
+    }
+
     public static ReplyKeyboardMarkup getCuisineKeyboard() {
         List<KeyboardButton> buttons = Stream.of(Cuisine.values()).map(c -> new KeyboardButton(c.getButtonText())).collect(Collectors.toList());
         List<KeyboardRow> rows = BotHelpers.buildKeyboardRowsWith2ButtonsInRow(buttons);

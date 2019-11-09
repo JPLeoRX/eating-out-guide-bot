@@ -27,25 +27,19 @@ public class MyBot extends TelegramLongPollingBot {
         return Constants.BOT_API_KEY;
     }
 
-    private ReplyKeyboardMarkup getReplyKeyboard() {
-        KeyboardButton button1 = new KeyboardButton(Constants.BUTTON_SUBMIT_NEW_REVIEW);
-
-        KeyboardRow row1 = new KeyboardRow();
-        row1.add(button1);
-
-        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
-        markup.setKeyboard(Arrays.asList(row1));
-        markup.setOneTimeKeyboard(true);
-
-        return markup;
-    }
 
     @Override
     public void onUpdateReceived(Update update) {
         // We check if the update has a message and the message has text
         if (update.hasMessage() && update.getMessage().hasText()) {
+            // If this was a command
+            if (update.getMessage().getText().startsWith("/")) {
+                System.out.println("Command received: " + update.getMessage().getText());
+                handleCommand(update);
+            }
+
             // If this was a button press
-            if (Constants.BUTTONS.contains(update.getMessage().getText())) {
+            else if (Constants.BUTTONS.contains(update.getMessage().getText())) {
                 System.out.println("Button pressed: " + update.getMessage().getText());
                 handleButton(update);
             }
@@ -64,7 +58,7 @@ public class MyBot extends TelegramLongPollingBot {
                     SendMessage message = new SendMessage();
                     message.setChatId(update.getMessage().getChatId());
                     message.setText("Keyboard");
-                    message.setReplyMarkup(getReplyKeyboard());
+                    message.setReplyMarkup(BotUi.getReplyKeyboard());
 
                     try {
                         execute(message);
@@ -83,8 +77,23 @@ public class MyBot extends TelegramLongPollingBot {
         return "testdates_bot";
     }
 
-    private void handleCommand(String command) {
+    private void handleCommand(Update update) {
+        if (update.getMessage().getText().equals("/start")) {
+            handleCommandStart(update);
+        }
+    }
 
+    private void handleCommandStart(Update update) {
+        SendMessage message = new SendMessage();
+        message.setChatId(update.getMessage().getChatId());
+        message.setText("Welcome!");
+        message.setReplyMarkup(BotUi.getReplyKeyboard());
+
+        try {
+            execute(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void handleButton(Update update) {
@@ -266,7 +275,7 @@ public class MyBot extends TelegramLongPollingBot {
         String text = "Thanks for your review";
 
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(getReplyKeyboard());
+        message.setReplyMarkup(BotUi.getReplyKeyboard());
         sendMessage(message);
 
         ReviewForm reviewForm = formBuilders.get(update.getMessage().getChatId()).build();
@@ -281,7 +290,7 @@ public class MyBot extends TelegramLongPollingBot {
         chatStates.put(update.getMessage().getChatId(), State.IDLE);
         String text = "Review cancelled";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(getReplyKeyboard());
+        message.setReplyMarkup(BotUi.getReplyKeyboard());
         sendMessage(message);
     }
     //------------------------------------------------------------------------------------------------------------------
