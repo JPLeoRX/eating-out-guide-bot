@@ -15,7 +15,10 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class MyBot extends TelegramLongPollingBot {
     private static final ConcurrentHashMap<Long, State> chatStates = new ConcurrentHashMap<>();
@@ -40,28 +43,9 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private ReplyKeyboardMarkup getCuisineKeyboard() {
-        KeyboardButton button1 = new KeyboardButton(Cuisine.AMERICAN.getButtonText());
-        KeyboardButton button2 = new KeyboardButton(Cuisine.JAPANESE.getButtonText());
-        KeyboardButton button3 = new KeyboardButton(Cuisine.CHINESE.getButtonText());
-        KeyboardButton button4 = new KeyboardButton(Cuisine.ITALIAN.getButtonText());
-        KeyboardButton button5 = new KeyboardButton(Cuisine.FRENCH.getButtonText());
-        KeyboardButton button6 = new KeyboardButton(Cuisine.MEXICAN.getButtonText());
-        KeyboardButton button7 = new KeyboardButton(Cuisine.INDIAN.getButtonText());
-        KeyboardButton button8 = new KeyboardButton(Cuisine.MEDITERRANEAN.getButtonText());
-        KeyboardButton button9 = new KeyboardButton(Cuisine.UKRAINIAN.getButtonText());
-        KeyboardButton button10 = new KeyboardButton(Cuisine.PATISSERIE.getButtonText());
-
-        KeyboardRow row1 = BotHelpers.buildKeyboardRow(button1, button2);
-        KeyboardRow row2 = BotHelpers.buildKeyboardRow(button3, button4);
-        KeyboardRow row3 = BotHelpers.buildKeyboardRow(button5, button6);
-        KeyboardRow row4 = BotHelpers.buildKeyboardRow(button7, button8);
-        KeyboardRow row5 = BotHelpers.buildKeyboardRow(button9, button10);
-
-        ReplyKeyboardMarkup markup = new ReplyKeyboardMarkup();
-        markup.setKeyboard(Arrays.asList(row1, row2, row3, row4, row5));
-        markup.setOneTimeKeyboard(true);
-
-        return markup;
+        List<KeyboardButton> buttons = Stream.of(Cuisine.values()).map(c -> new KeyboardButton(c.getButtonText())).collect(Collectors.toList());
+        List<KeyboardRow> rows = BotHelpers.buildKeyboardRowsWith2ButtonsInRow(buttons);
+        return BotHelpers.buildKeyboardMarkupOneTime(rows);
     }
 
     private ReplyKeyboardMarkup getBudgetKeyboard() {

@@ -2,6 +2,7 @@ package com.tekleo.eating_out_guide_bot.review;
 
 import com.tekleo.eating_out_guide_bot.review.enums.Budget;
 import com.tekleo.eating_out_guide_bot.review.enums.Cuisine;
+import com.tekleo.eating_out_guide_bot.review.enums.Privacy;
 import com.tekleo.eating_out_guide_bot.review.enums.Score;
 
 import java.util.Arrays;
@@ -15,9 +16,10 @@ public class ReviewMessage {
     private String address;
     private Score score;
     private String text;
+    private Privacy privacy;
     private long createdAt;
 
-    public ReviewMessage(String author, String name, Cuisine cuisine, Budget budget, String address, Score score, String text, long createdAt) {
+    public ReviewMessage(String author, String name, Cuisine cuisine, Budget budget, String address, Score score, String text, Privacy privacy, long createdAt) {
         this.author = author;
         this.name = name;
         this.cuisine = cuisine;
@@ -25,11 +27,12 @@ public class ReviewMessage {
         this.address = address;
         this.score = score;
         this.text = text;
+        this.privacy = privacy;
         this.createdAt = createdAt;
     }
 
     public ReviewMessage(ReviewForm reviewForm) {
-        this(reviewForm.getAuthor(), reviewForm.getName(), reviewForm.getCuisine(), reviewForm.getBudget(), reviewForm.getAddress(), reviewForm.getScore(), reviewForm.getText(), System.currentTimeMillis());
+        this(reviewForm.getAuthor(), reviewForm.getName(), reviewForm.getCuisine(), reviewForm.getBudget(), reviewForm.getAddress(), reviewForm.getScore(), reviewForm.getText(), reviewForm.getPrivacy(), System.currentTimeMillis());
     }
 
     public String getMessageText() {

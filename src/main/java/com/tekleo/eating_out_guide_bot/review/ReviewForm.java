@@ -2,6 +2,7 @@ package com.tekleo.eating_out_guide_bot.review;
 
 import com.tekleo.eating_out_guide_bot.review.enums.Budget;
 import com.tekleo.eating_out_guide_bot.review.enums.Cuisine;
+import com.tekleo.eating_out_guide_bot.review.enums.Privacy;
 import com.tekleo.eating_out_guide_bot.review.enums.Score;
 
 public class ReviewForm {
@@ -12,8 +13,9 @@ public class ReviewForm {
     private String address;
     private Score score;
     private String text;
+    private Privacy privacy;
 
-    public ReviewForm(String author, String name, Cuisine cuisine, Budget budget, String address, Score score, String text) {
+    public ReviewForm(String author, String name, Cuisine cuisine, Budget budget, String address, Score score, String text, Privacy privacy) {
         this.author = author;
         this.name = name;
         this.cuisine = cuisine;
@@ -21,6 +23,7 @@ public class ReviewForm {
         this.address = address;
         this.score = score;
         this.text = text;
+        this.privacy = privacy;
     }
 
     public String getAuthor() {
@@ -51,6 +54,10 @@ public class ReviewForm {
         return text;
     }
 
+    public Privacy getPrivacy() {
+        return privacy;
+    }
+
     @Override
     public String toString() {
         return "ReviewForm{" +
@@ -61,6 +68,7 @@ public class ReviewForm {
                 ", address='" + address + '\'' +
                 ", score=" + score +
                 ", text='" + text + '\'' +
+                ", privacy=" + privacy +
                 '}';
     }
 }
