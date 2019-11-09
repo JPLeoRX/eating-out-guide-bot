@@ -194,15 +194,15 @@ public class MyBot extends TelegramLongPollingBot {
     private void acceptConfirmation(Update update) {
         System.out.println("Confirmation: " + update.getMessage().getText());
 
-        // If submitted
-        if (Confirmation.YES.getButtonText().equals(update.getMessage().getText())) {
-            finishForm(update);
-        }
+        // Get confirmation
+        Confirmation confirmation = Confirmation.fromButtonText(update.getMessage().getText());
 
+        // If submitted
+        if (Confirmation.YES == confirmation)
+            finishForm(update);
         // If cancelled
-        else if (Confirmation.NO_CANCEL.getButtonText().equals(update.getMessage().getText())) {
+        else if (Confirmation.NO_CANCEL == confirmation)
             cancelForm(update);
-        }
     }
 
     private void requestName(Update update) {
