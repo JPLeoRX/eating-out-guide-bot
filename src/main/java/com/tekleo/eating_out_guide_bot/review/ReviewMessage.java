@@ -55,10 +55,10 @@ public class ReviewMessage {
     }
 
     private static String getHashtagFromCuisine(Cuisine cuisine) {
-        return "#" + cuisine.getButtonText().toLowerCase();
+        return "#cuisine_" + cuisine.getButtonText().split(" ")[0].toLowerCase();
     }
 
     private static String getHashtagFromBudget(Budget budget) {
-        return "#" + budget.getText().toLowerCase();
+        return "#budget_" + budget.getText().toLowerCase();
     }
 }
