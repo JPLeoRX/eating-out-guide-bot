@@ -14,6 +14,11 @@ public enum Emoji {
     FOOD_SASHIMI("\uD83C\uDF63"),
     FOOD_FRIES("\uD83C\uDF5F"),
 
+    NOTEPAD("\uD83D\uDCDD"),
+    CHART("\uD83D\uDCCA"),
+    PC("\uD83D\uDCBB"),
+    EMAIL_INCOMING("\uD83D\uDCE9"),
+
     STAR("\u2B50"),
     DOLLAR("\uD83D\uDCB5");
 
