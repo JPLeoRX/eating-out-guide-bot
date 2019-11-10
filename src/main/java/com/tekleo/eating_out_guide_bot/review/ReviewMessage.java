@@ -1,5 +1,6 @@
 package com.tekleo.eating_out_guide_bot.review;
 
+import com.tekleo.eating_out_guide_bot.Constants;
 import com.tekleo.eating_out_guide_bot.review.enums.Budget;
 import com.tekleo.eating_out_guide_bot.review.enums.Cuisine;
 import com.tekleo.eating_out_guide_bot.review.enums.Privacy;
@@ -45,8 +46,10 @@ public class ReviewMessage {
         String line7 = "<b>Оценка:</b> " + score.getButtonText();
         String line8 = "--------------------------";
         String line9 = text;
+        String line10 = "--------------------------";
+        String line11 = "Оцените заведение: @eating_out_guide_kyiv_bot";
 
-        List<String> lines = Arrays.asList(line1, line2, line3, line4, line5, line6, line7, line8, line9);
+        List<String> lines = Arrays.asList(line1, line2, line3, line4, line5, line6, line7, line8, line9, line10, line11);
         return String.join("\n", lines);
     }
 
