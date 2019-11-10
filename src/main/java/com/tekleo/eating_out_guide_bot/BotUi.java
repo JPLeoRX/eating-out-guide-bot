@@ -15,9 +15,10 @@ import java.util.stream.Stream;
 
 public class BotUi {
     public static ReplyKeyboardMarkup getReplyKeyboard() {
-        List<KeyboardButton> buttons = Arrays.asList(new KeyboardButton(Constants.BUTTON_SUBMIT_NEW_REVIEW));
-        List<KeyboardRow> rows = BotHelpers.buildKeyboardRowsWith2ButtonsInRow(buttons);
-        return BotHelpers.buildKeyboardMarkupOneTime(rows);
+        KeyboardRow row1 = BotHelpers.buildKeyboardRow(new KeyboardButton(Constants.BUTTON_SUBMIT_NEW_REVIEW));
+        KeyboardRow row2 = BotHelpers.buildKeyboardRow(new KeyboardButton(Constants.BUTTON_PARTNERSHIP));
+        KeyboardRow row3 = BotHelpers.buildKeyboardRow(new KeyboardButton(Constants.BUTTON_RELATED_PROJECTS), new KeyboardButton(Constants.BUTTON_CONTACTS));
+        return BotHelpers.buildKeyboardMarkupOneTime(Arrays.asList(row1, row2, row3));
     }
 
     public static ReplyKeyboardMarkup getCuisineKeyboard() {

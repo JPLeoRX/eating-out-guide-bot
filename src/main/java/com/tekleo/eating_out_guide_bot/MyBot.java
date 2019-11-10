@@ -16,6 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.Keyboard
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 import java.util.Arrays;
+import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MyBot extends TelegramLongPollingBot {
@@ -99,10 +100,33 @@ public class MyBot extends TelegramLongPollingBot {
     private void handleButton(Update update) {
         if (update.getMessage().getText().equals(Constants.BUTTON_SUBMIT_NEW_REVIEW))
             handleStartReviewButton(update);
+        else if (update.getMessage().getText().equalsIgnoreCase(Constants.BUTTON_CONTACTS))
+            handleContactsButton(update);
     }
 
     private void handleStartReviewButton(Update update) {
         requestName(update);
+    }
+
+    private void handlePartnershipButton(Update update) {
+
+    }
+
+    private void handleRelatedProjectsButton(Update update) {
+
+    }
+
+    private void handleContactsButton(Update update) {
+        String line1 = "Main channel: @eating_out_guide_kyiv";
+        String line2 = "Bot developer: @jpleorx";
+        String line3 = "Support: @medium_mara";
+        String line4 = "";
+        String line5 = "If you encounter any issues with this bot don't hesitate to contact us";
+        List<String> lines = Arrays.asList(line1, line2, line3, line4, line5);
+
+        String text = String.join("\n", lines);
+        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
+        sendMessage(message);
     }
 
     // Handle form submission
