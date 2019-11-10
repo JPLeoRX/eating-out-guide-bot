@@ -85,18 +85,11 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void handleCommandStart(Update update) {
-        SendMessage message = new SendMessage();
-        message.setChatId(update.getMessage().getChatId());
-        message.setText("Welcome!");
-        message.setReplyMarkup(BotUi.getReplyKeyboard());
-
-        try {
-            execute(message);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        sendMessage(new WelcomeMessage().toSendMessage(update));
     }
 
+    // Handle buttons
+    //------------------------------------------------------------------------------------------------------------------
     private void handleButton(Update update) {
         if (update.getMessage().getText().equals(Constants.BUTTON_SUBMIT_NEW_REVIEW))
             handleStartReviewButton(update);
@@ -113,50 +106,19 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void handlePartnershipButton(Update update) {
-        String line1 = "For any inquiries about commercials/promos or any other form of partnership:";
-        String line2 = "leo.ertuna@gmail.com / @jpleorx";
-        List<String> lines = Arrays.asList(line1, line2);
-
-        String text = String.join("\n", lines);
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getReplyKeyboard());
-        sendMessage(message);
+        sendMessage(new PartnershipMessage().toSendMessage(update));
     }
 
     private void handleRelatedProjectsButton(Update update) {
-        String line1 = "<b>Ukraine</b>";
-        String line2 = "Kyiv: @eating_out_guide_kyiv";
-        String line3 = "Odessa: @eating_out_guide_odessa";
-        String line4 = "Lviv: @eating_out_guide_lviv";
-        String line5 = "Dnipro: @eating_out_guide_dnipro";
-        String line6 = "Kharkiv: @eating_out_guide_kharkiv";
-        String line7 = "";
-        String line8 = "<b>Russia</b>";
-        String line9 = "Moscow: @eating_out_guide_moscow";
-        String line10 = "St. Petersburg: @eating_out_guide_stpetersburg";
-
-        List<String> lines = Arrays.asList(line1, line2, line3, line4, line5, line6, line7, line8, line9, line10);
-
-        String text = String.join("\n", lines);
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setParseMode(ParseMode.HTML);
-        message.setReplyMarkup(BotUi.getReplyKeyboard());
-        sendMessage(message);
+        sendMessage(new RelatedProjectsMessage().toSendMessage(update));
     }
 
     private void handleContactsButton(Update update) {
-        String line1 = "Main channel: @eating_out_guide_kyiv";
-        String line2 = "Bot developer: @jpleorx";
-        String line3 = "Support: @medium_mara";
-        String line4 = "";
-        String line5 = "If you encounter any issues with this bot don't hesitate to contact us";
-        List<String> lines = Arrays.asList(line1, line2, line3, line4, line5);
-
-        String text = String.join("\n", lines);
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getReplyKeyboard());
-        sendMessage(message);
+        sendMessage(new ContactsMessage().toSendMessage(update));
     }
+    //------------------------------------------------------------------------------------------------------------------
+
+
 
     // Handle form submission
     //------------------------------------------------------------------------------------------------------------------
@@ -197,8 +159,6 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void acceptName(Update update) {
-        System.out.println("Name: " + update.getMessage().getText());
-
         // Initialize new builder
         formBuilders.put(update.getMessage().getChatId(), new ReviewFormBuilder());
 
@@ -210,8 +170,6 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void acceptCuisine(Update update) {
-        System.out.println("Cuisine: " + update.getMessage().getText());
-
         // Get cuisine
         Cuisine cuisine = Cuisine.fromButtonText(update.getMessage().getText());
 
@@ -220,8 +178,6 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void acceptBudget(Update update) {
-        System.out.println("Budget: " + update.getMessage().getText());
-
         // Get budget
         Budget budget = Budget.fromButtonText(update.getMessage().getText());
 
@@ -230,15 +186,11 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void acceptAddress(Update update) {
-        System.out.println("Address: " + update.getMessage().getText());
-
         // Push address into builder
         formBuilders.get(update.getMessage().getChatId()).setAddress(update.getMessage().getText());
     }
 
     private void acceptScore(Update update) {
-        System.out.println("Score: " + update.getMessage().getText());
-
         // Get score
         Score score = Score.fromButtonText(update.getMessage().getText());
 
@@ -247,15 +199,11 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void acceptText(Update update) {
-        System.out.println("Text: " + update.getMessage().getText());
-
         // Push text into builder
         formBuilders.get(update.getMessage().getChatId()).setText(update.getMessage().getText());
     }
 
     private void acceptConfirmation(Update update) {
-        System.out.println("Confirmation: " + update.getMessage().getText());
-
         // Get confirmation
         Confirmation confirmation = Confirmation.fromButtonText(update.getMessage().getText());
 
@@ -269,14 +217,14 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void requestName(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_NAME);
-        String text = "Enter name: ";
+        String text = "Название заведения: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         sendMessage(message);
     }
 
     private void requestCuisine(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_CUISINE);
-        String text = "Enter cuisine: ";
+        String text = "Кухня: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setReplyMarkup(BotUi.getCuisineKeyboard());
         sendMessage(message);

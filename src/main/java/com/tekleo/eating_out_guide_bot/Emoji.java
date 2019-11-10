@@ -19,6 +19,8 @@ public enum Emoji {
     PC("\uD83D\uDCBB"),
     EMAIL_INCOMING("\uD83D\uDCE9"),
 
+    QUESTION_MARK(""),
+
     STAR("\u2B50"),
     DOLLAR("\uD83D\uDCB5");
 

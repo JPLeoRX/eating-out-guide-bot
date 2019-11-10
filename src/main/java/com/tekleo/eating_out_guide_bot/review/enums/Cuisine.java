@@ -3,17 +3,18 @@ package com.tekleo.eating_out_guide_bot.review.enums;
 import com.tekleo.eating_out_guide_bot.Emoji;
 
 public enum Cuisine {
-    AMERICAN("American " + Emoji.FOOD_BURGER.getText()),
-    JAPANESE("Japanese " + Emoji.FOOD_SASHIMI.getText()),
-    CHINESE("Chinese " + Emoji.FOOD_NOODLES.getText()),
-    ITALIAN("Italian " + Emoji.FOOD_PASTA.getText()),
-    FRENCH("French " + Emoji.FOOD_ONION_SOUP.getText()),
-    MEXICAN("Mexican " + Emoji.FOOD_TACO.getText()),
-    INDIAN("Indian " + Emoji.FOOD_CURRY.getText()),
-    MEDITERRANEAN("Mediterranean " + Emoji.FOOD_GREEN_SALAD.getText()),
-    UKRAINIAN("Ukrainian " + Emoji.FOOD_SOUP.getText()),
-    PATISSERIE("Patisserie " + Emoji.FOOD_CAKE_STRAWBERRY.getText()),
-    FASTFOOD("Fast food " + Emoji.FOOD_FRIES.getText());
+    AMERICAN("Американская " + Emoji.FOOD_BURGER.getText()),
+    JAPANESE("Японская " + Emoji.FOOD_SASHIMI.getText()),
+    CHINESE("Китайская " + Emoji.FOOD_NOODLES.getText()),
+    ITALIAN("Итальянская " + Emoji.FOOD_PASTA.getText()),
+    FRENCH("Французская " + Emoji.FOOD_ONION_SOUP.getText()),
+    MEXICAN("Мексиканская " + Emoji.FOOD_TACO.getText()),
+    INDIAN("Индийская " + Emoji.FOOD_CURRY.getText()),
+    MEDITERRANEAN("Средиземноморская " + Emoji.FOOD_GREEN_SALAD.getText()),
+    UKRAINIAN("Українська " + Emoji.FOOD_SOUP.getText()),
+    PATISSERIE("Кондитерские " + Emoji.FOOD_CAKE_STRAWBERRY.getText()),
+    FASTFOOD("Фаст-фуд " + Emoji.FOOD_FRIES.getText()),
+    OTHER("Other " + Emoji.QUESTION_MARK.getText());
 
     private String buttonText;
 
