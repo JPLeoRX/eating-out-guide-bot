@@ -113,7 +113,14 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void handlePartnershipButton(Update update) {
+        String line1 = "For any inquiries about commercials/promos or any other form of partnership:";
+        String line2 = "leo.ertuna@gmail.com / @jpleorx";
+        List<String> lines = Arrays.asList(line1, line2);
 
+        String text = String.join("\n", lines);
+        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
+        message.setReplyMarkup(BotUi.getReplyKeyboard());
+        sendMessage(message);
     }
 
     private void handleRelatedProjectsButton(Update update) {
