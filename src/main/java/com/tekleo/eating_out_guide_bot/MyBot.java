@@ -232,7 +232,7 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void requestBudget(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_BUDGET);
-        String text = "Enter budget: ";
+        String text = "Ценовая категория: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setReplyMarkup(BotUi.getBudgetKeyboard());
         sendMessage(message);

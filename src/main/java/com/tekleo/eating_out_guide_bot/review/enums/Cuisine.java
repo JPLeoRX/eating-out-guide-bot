@@ -1,20 +1,20 @@
 package com.tekleo.eating_out_guide_bot.review.enums;
 
-import com.tekleo.eating_out_guide_bot.Emoji;
+import com.tekleo.eating_out_guide_bot.Constants;
 
 public enum Cuisine {
-    AMERICAN("Американская " + Emoji.FOOD_BURGER.getText()),
-    JAPANESE("Японская " + Emoji.FOOD_SASHIMI.getText()),
-    CHINESE("Китайская " + Emoji.FOOD_NOODLES.getText()),
-    ITALIAN("Итальянская " + Emoji.FOOD_PASTA.getText()),
-    FRENCH("Французская " + Emoji.FOOD_ONION_SOUP.getText()),
-    MEXICAN("Мексиканская " + Emoji.FOOD_TACO.getText()),
-    INDIAN("Индийская " + Emoji.FOOD_CURRY.getText()),
-    MEDITERRANEAN("Средиземноморская " + Emoji.FOOD_GREEN_SALAD.getText()),
-    UKRAINIAN("Українська " + Emoji.FOOD_SOUP.getText()),
-    PATISSERIE("Кондитерские " + Emoji.FOOD_CAKE_STRAWBERRY.getText()),
-    FASTFOOD("Фаст-фуд " + Emoji.FOOD_FRIES.getText()),
-    OTHER("Other " + Emoji.QUESTION_MARK.getText());
+    AMERICAN(Constants.BUTTON_CUISINE_AMERICAN),
+    JAPANESE(Constants.BUTTON_CUISINE_JAPANESE),
+    CHINESE(Constants.BUTTON_CUISINE_CHINESE),
+    ITALIAN(Constants.BUTTON_CUISINE_ITALIAN),
+    FRENCH(Constants.BUTTON_CUISINE_FRENCH),
+    MEXICAN(Constants.BUTTON_CUISINE_MEXICAN),
+    INDIAN(Constants.BUTTON_CUISINE_INDIAN),
+    MEDITERRANEAN(Constants.BUTTON_CUISINE_MEDITERRANEAN),
+    UKRAINIAN(Constants.BUTTON_CUISINE_UKRAINIAN),
+    PATISSERIE(Constants.BUTTON_CUISINE_PATISSERIE),
+    FASTFOOD(Constants.BUTTON_CUISINE_FASTFOOD),
+    OTHER(Constants.BUTTON_CUISINE_OTHER);
 
     private String buttonText;
 

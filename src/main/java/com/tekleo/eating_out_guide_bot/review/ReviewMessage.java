@@ -40,7 +40,7 @@ public class ReviewMessage {
         String line2 = "--------------------------";
         String line3 = "<b>Name:</b> " + name;
         String line4 = "<b>Cuisine:</b> " + cuisine.getButtonText();
-        String line5 = "<b>Budget:</b> " + budget.getButtonText() + " (" + budget.getText() + ")";
+        String line5 = "<b>Budget:</b> " + budget.getButtonText();
         String line6 = "<b>Address:</b> " + address;
         String line7 = "<b>Score:</b> " + score.getButtonText();
         String line8 = "--------------------------";
@@ -59,6 +59,10 @@ public class ReviewMessage {
     }
 
     private static String getHashtagFromBudget(Budget budget) {
-        return "#budget_" + budget.getText().toLowerCase();
+        return "#budget_" + budget.getButtonText()
+                .replace("(", "")
+                .replace(")", "")
+                .split(" ")[1]
+                .toLowerCase();
     }
 }
