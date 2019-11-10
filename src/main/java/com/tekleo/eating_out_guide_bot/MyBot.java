@@ -240,14 +240,14 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void requestAddress(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_ADDRESS);
-        String text = "Enter address: ";
+        String text = "Адрес: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         sendMessage(message);
     }
 
     private void requestScore(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_SCORE);
-        String text = "Enter score: ";
+        String text = "Ваша оценка заведения: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setReplyMarkup(BotUi.getScoreKeyboard());
         sendMessage(message);
@@ -255,7 +255,7 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void requestText(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_TEXT);
-        String text = "Enter review text: ";
+        String text = "Напишите ваш отзыв, ваше впечатление от заведения: ";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         sendMessage(message);
     }
@@ -264,7 +264,7 @@ public class MyBot extends TelegramLongPollingBot {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_CONFIRMATION);
         ReviewForm reviewForm = formBuilders.get(update.getMessage().getChatId()).build();
         ReviewMessage reviewMessage = new ReviewMessage(reviewForm);
-        String text = "Confirm your review?\n\n\n" + reviewMessage.getMessageText();
+        String text = "Ваш отзыв будет выглядеть так. Подтверждаете отправку?\n\n\n" + reviewMessage.getMessageText();
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setParseMode(ParseMode.HTML);
         message.setReplyMarkup(BotUi.getConfirmationKeyboard());
@@ -273,7 +273,7 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void finishForm(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.IDLE);
-        String text = "Thanks for your review";
+        String text = "Благодарим за ваш отзыв, он будет опубликован в ближайшее время.";
 
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setReplyMarkup(BotUi.getReplyKeyboard());
@@ -289,37 +289,17 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void cancelForm(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.IDLE);
-        String text = "Review cancelled";
+        String text = "Отзыв отменен.";
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
         message.setReplyMarkup(BotUi.getReplyKeyboard());
         sendMessage(message);
     }
     //------------------------------------------------------------------------------------------------------------------
 
-    private void sendMessage(long chatId, String text) {
-        sendMessage(new SendMessage(chatId, text));
-    }
-
     private void sendMessage(SendMessage message) {
         try {
             execute(message);
         } catch (TelegramApiException e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void forwardMessage(Update update) {
-        User user = update.getMessage().getFrom();
-        long chatId = update.getMessage().getChatId();
-        String messageText = update.getMessage().getText();
-
-        String text = "Received message: '" + messageText + "' from user '" + user.getUserName() + "' at char id " + chatId;
-
-        SendMessage message1 = new SendMessage(update.getMessage().getChatId(), text);
-
-        try {
-            execute(message1);
-        } catch (Exception e) {
             e.printStackTrace();
         }
     }

@@ -3,8 +3,8 @@ package com.tekleo.eating_out_guide_bot.review.enums;
 import com.tekleo.eating_out_guide_bot.Emoji;
 
 public enum Confirmation {
-    YES("Yes"),
-    NO_CANCEL("No, cancel review");
+    YES("Да"),
+    NO_CANCEL("Нет, отменить отзыв");
 
     private String buttonText;
 
