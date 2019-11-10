@@ -100,6 +100,10 @@ public class MyBot extends TelegramLongPollingBot {
     private void handleButton(Update update) {
         if (update.getMessage().getText().equals(Constants.BUTTON_SUBMIT_NEW_REVIEW))
             handleStartReviewButton(update);
+        else if (update.getMessage().getText().equals(Constants.BUTTON_PARTNERSHIP))
+            handlePartnershipButton(update);
+        else if (update.getMessage().getText().equals(Constants.BUTTON_RELATED_PROJECTS))
+            handleRelatedProjectsButton(update);
         else if (update.getMessage().getText().equalsIgnoreCase(Constants.BUTTON_CONTACTS))
             handleContactsButton(update);
     }
@@ -113,7 +117,24 @@ public class MyBot extends TelegramLongPollingBot {
     }
 
     private void handleRelatedProjectsButton(Update update) {
+        String line1 = "<b>Ukraine</b>";
+        String line2 = "Kyiv: @eating_out_guide_kyiv";
+        String line3 = "Odessa: @eating_out_guide_odessa";
+        String line4 = "Lviv: @eating_out_guide_lviv";
+        String line5 = "Dnipro: @eating_out_guide_dnipro";
+        String line6 = "Kharkiv: @eating_out_guide_kharkiv";
+        String line7 = "";
+        String line8 = "<b>Russia</b>";
+        String line9 = "Moscow: @eating_out_guide_moscow";
+        String line10 = "St. Petersburg: @eating_out_guide_stpetersburg";
 
+        List<String> lines = Arrays.asList(line1, line2, line3, line4, line5, line6, line7, line8, line9, line10);
+
+        String text = String.join("\n", lines);
+        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
+        message.setParseMode(ParseMode.HTML);
+        message.setReplyMarkup(BotUi.getReplyKeyboard());
+        sendMessage(message);
     }
 
     private void handleContactsButton(Update update) {
