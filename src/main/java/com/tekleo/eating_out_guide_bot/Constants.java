@@ -7,7 +7,7 @@ public class Constants {
     public static final String BOT_API_KEY = "1048763656:AAE8-bm3mRRjBFF1jcxvUsExmraelbYwp2s";
     public static final String CHANNEL_USERNAME = "@eating_out_guide_kyiv";
 
-    public static final String BUTTON_SUBMIT_NEW_REVIEW = "Ваш отзыв " + Emoji.NOTEPAD.getText();
+    public static final String BUTTON_SUBMIT_NEW_REVIEW = "Написать отзыв " + Emoji.NOTEPAD.getText();
     public static final String BUTTON_PARTNERSHIP = "Сотрудничество " + Emoji.CHART.getText();
     public static final String BUTTON_RELATED_PROJECTS = "Наши проекты " + Emoji.PC.getText();
     public static final String BUTTON_CONTACTS = "Контакты " + Emoji.EMAIL_INCOMING.getText();
