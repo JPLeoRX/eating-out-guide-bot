@@ -30,13 +30,13 @@ public class MyBot extends TelegramLongPollingBot {
         if (update.hasMessage() && update.getMessage().hasText()) {
             // If this was a command
             if (update.getMessage().getText().startsWith("/")) {
-                System.out.println("Command received: " + update.getMessage().getText());
+                System.out.println("Command received: " + update.getMessage().getText() + " from " + update.getMessage().getFrom().getUserName());
                 handleCommand(update);
             }
 
             // If this was a button press
             else if (Constants.BUTTONS.contains(update.getMessage().getText())) {
-                System.out.println("Button pressed: " + update.getMessage().getText());
+                System.out.println("Button pressed: " + update.getMessage().getText() + " from " + update.getMessage().getFrom().getUserName());
                 handleButton(update);
             }
 
@@ -63,14 +63,12 @@ public class MyBot extends TelegramLongPollingBot {
                     }
                 }
             }
-
-            //forwardMessage(update);
         }
     }
 
     @Override
     public String getBotUsername() {
-        return "testdates_bot";
+        return "eating_out_guide_kyiv_bot";
     }
 
     private void handleCommand(Update update) {
