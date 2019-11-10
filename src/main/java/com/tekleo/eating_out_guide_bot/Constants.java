@@ -24,7 +24,7 @@ public class Constants {
     public static final String BUTTON_CUISINE_UKRAINIAN = "Українська " + Emoji.FOOD_SOUP.getText() ;
     public static final String BUTTON_CUISINE_PATISSERIE = "Кондитерские " + Emoji.FOOD_CAKE_STRAWBERRY.getText() ;
     public static final String BUTTON_CUISINE_FASTFOOD = "Фаст-фуд " + Emoji.FOOD_FRIES.getText() ;
-    public static final String BUTTON_CUISINE_OTHER = "Другое " + Emoji.QUESTION_MARK.getText();
+    public static final String BUTTON_CUISINE_OTHER = "Другое " + Emoji.FOOD_FORK.getText();
 
     public static final String BUTTON_BUDGET_CHEAP = Emoji.DOLLAR.getText() + " (Дешево)";
     public static final String BUTTON_BUDGET_AVERAGE = Emoji.DOLLAR.getText() + Emoji.DOLLAR.getText() + " (Средне)";
