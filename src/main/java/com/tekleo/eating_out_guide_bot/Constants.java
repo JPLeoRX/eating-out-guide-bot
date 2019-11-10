@@ -4,8 +4,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class Constants {
-    public static final String BOT_API_KEY = "931476299:AAFQB5W87R9NLvDqOaHLx6cBfOF82WOHRiI";
-    public static final String CHANNEL_USERNAME = "@eating_out_guide";
+    public static final String BOT_API_KEY = "1048763656:AAE8-bm3mRRjBFF1jcxvUsExmraelbYwp2s";
+    public static final String CHANNEL_USERNAME = "@eating_out_guide_kyiv";
 
     public static final String BUTTON_SUBMIT_NEW_REVIEW = "Ваш отзыв " + Emoji.NOTEPAD.getText();
     public static final String BUTTON_PARTNERSHIP = "Сотрудничество " + Emoji.CHART.getText();
