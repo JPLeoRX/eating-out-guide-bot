@@ -1,5 +1,6 @@
-package com.tekleo.eating_out_guide_bot;
+package com.tekleo.eating_out_guide_bot.message;
 
+import com.tekleo.eating_out_guide_bot.BotUi;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboard;
 
 import java.util.Arrays;

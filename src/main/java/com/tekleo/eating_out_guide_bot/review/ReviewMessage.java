@@ -38,11 +38,11 @@ public class ReviewMessage {
     public String getMessageText() {
         String line1 = getHashtagFromName(name) + " " + getHashtagFromCuisine(cuisine) + " " + getHashtagFromBudget(budget);
         String line2 = "--------------------------";
-        String line3 = "<b>Name:</b> " + name;
-        String line4 = "<b>Cuisine:</b> " + cuisine.getButtonText();
-        String line5 = "<b>Budget:</b> " + budget.getButtonText();
-        String line6 = "<b>Address:</b> " + address;
-        String line7 = "<b>Score:</b> " + score.getButtonText();
+        String line3 = "<b>Название:</b> " + name;
+        String line4 = "<b>Кухня:</b> " + cuisine.getButtonText();
+        String line5 = "<b>Ценовая категория:</b> " + budget.getButtonText();
+        String line6 = "<b>Адрес:</b> " + address;
+        String line7 = "<b>Оценка:</b> " + score.getButtonText();
         String line8 = "--------------------------";
         String line9 = text;
 
@@ -55,11 +55,11 @@ public class ReviewMessage {
     }
 
     private static String getHashtagFromCuisine(Cuisine cuisine) {
-        return "#cuisine_" + cuisine.getButtonText().split(" ")[0].toLowerCase();
+        return "#кухня_" + cuisine.getButtonText().split(" ")[0].toLowerCase();
     }
 
     private static String getHashtagFromBudget(Budget budget) {
-        return "#budget_" + budget.getButtonText()
+        return "#бюджет_" + budget.getButtonText()
                 .replace("(", "")
                 .replace(")", "")
                 .split(" ")[1]

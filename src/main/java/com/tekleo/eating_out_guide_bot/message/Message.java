@@ -1,4 +1,4 @@
-package com.tekleo.eating_out_guide_bot;
+package com.tekleo.eating_out_guide_bot.message;
 
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;

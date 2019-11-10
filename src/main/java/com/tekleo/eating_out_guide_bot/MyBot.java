@@ -1,5 +1,6 @@
 package com.tekleo.eating_out_guide_bot;
 
+import com.tekleo.eating_out_guide_bot.message.*;
 import com.tekleo.eating_out_guide_bot.review.*;
 import com.tekleo.eating_out_guide_bot.review.enums.Budget;
 import com.tekleo.eating_out_guide_bot.review.enums.Confirmation;
@@ -9,14 +10,8 @@ import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.User;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.ReplyKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardButton;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.KeyboardRow;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-import java.util.Arrays;
-import java.util.List;
 import java.util.concurrent.ConcurrentHashMap;
 
 public class MyBot extends TelegramLongPollingBot {
@@ -217,47 +212,32 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void requestName(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_NAME);
-        String text = "Название заведения: ";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        sendMessage(message);
+        sendMessage(new ReviewFormRequestNameMessage().toSendMessage(update));
     }
 
     private void requestCuisine(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_CUISINE);
-        String text = "Кухня: ";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getCuisineKeyboard());
-        sendMessage(message);
+        sendMessage(new ReviewFormRequestCuisineMessage().toSendMessage(update));
     }
 
     private void requestBudget(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_BUDGET);
-        String text = "Ценовая категория: ";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getBudgetKeyboard());
-        sendMessage(message);
+        sendMessage(new ReviewFormRequestBudgetMessage().toSendMessage(update));
     }
 
     private void requestAddress(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_ADDRESS);
-        String text = "Адрес: ";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        sendMessage(message);
+        sendMessage(new ReviewFormRequestAddressMessage().toSendMessage(update));
     }
 
     private void requestScore(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_SCORE);
-        String text = "Ваша оценка заведения: ";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getScoreKeyboard());
-        sendMessage(message);
+        sendMessage(new ReviewFormRequestScoreMessage().toSendMessage(update));
     }
 
     private void requestText(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.REQUESTED_TEXT);
-        String text = "Напишите ваш отзыв, ваше впечатление от заведения: ";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        sendMessage(message);
+        sendMessage(new ReviewFormRequestTextMessage().toSendMessage(update));
     }
 
     private void requestConfirmation(Update update) {
@@ -273,15 +253,10 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void finishForm(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.IDLE);
-        String text = "Благодарим за ваш отзыв, он будет опубликован в ближайшее время.";
-
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getReplyKeyboard());
-        sendMessage(message);
+        sendMessage(new ReviewFormFinishedMessage().toSendMessage(update));
 
         ReviewForm reviewForm = formBuilders.get(update.getMessage().getChatId()).build();
         ReviewMessage reviewMessage = new ReviewMessage(reviewForm);
-
         SendMessage message2 = new SendMessage(Constants.CHANNEL_USERNAME, reviewMessage.getMessageText());
         message2.setParseMode(ParseMode.HTML);
         sendMessage(message2);
@@ -289,10 +264,7 @@ public class MyBot extends TelegramLongPollingBot {
 
     private void cancelForm(Update update) {
         chatStates.put(update.getMessage().getChatId(), State.IDLE);
-        String text = "Отзыв отменен.";
-        SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
-        message.setReplyMarkup(BotUi.getReplyKeyboard());
-        sendMessage(message);
+        sendMessage(new ReviewFormCanceledMessage().toSendMessage(update));
     }
     //------------------------------------------------------------------------------------------------------------------
 
