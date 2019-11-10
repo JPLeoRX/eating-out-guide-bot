@@ -126,6 +126,7 @@ public class MyBot extends TelegramLongPollingBot {
 
         String text = String.join("\n", lines);
         SendMessage message = new SendMessage(update.getMessage().getChatId(), text);
+        message.setReplyMarkup(BotUi.getReplyKeyboard());
         sendMessage(message);
     }
 
