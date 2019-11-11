@@ -20,8 +20,10 @@ public class Constants {
     public static final String BUTTON_CUISINE_FRENCH = "Французская " + Emoji.FOOD_ONION_SOUP.getText() ;
     public static final String BUTTON_CUISINE_MEXICAN = "Мексиканская " + Emoji.FOOD_TACO.getText() ;
     public static final String BUTTON_CUISINE_INDIAN = "Индийская " + Emoji.FOOD_CURRY.getText() ;
+    public static final String BUTTON_CUISINE_TURKISH = "Турецкая " + Emoji.NAZAR.getText();
     public static final String BUTTON_CUISINE_MEDITERRANEAN = "Средиземноморская " + Emoji.FOOD_GREEN_SALAD.getText() ;
     public static final String BUTTON_CUISINE_UKRAINIAN = "Українська " + Emoji.FOOD_SOUP.getText() ;
+    public static final String BUTTON_CUISINE_GEORGIAN = "Грузинская " + Emoji.FLAG_GEORGIA.getText();
     public static final String BUTTON_CUISINE_PATISSERIE = "Кондитерские " + Emoji.FOOD_CAKE_STRAWBERRY.getText() ;
     public static final String BUTTON_CUISINE_COFFEE_SHOP = "Кофейня " + Emoji.FOOD_COFFEE.getText();
     public static final String BUTTON_CUISINE_FASTFOOD = "Фаст-фуд " + Emoji.FOOD_FRIES.getText() ;

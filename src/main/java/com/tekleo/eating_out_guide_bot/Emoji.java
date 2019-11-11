@@ -16,6 +16,9 @@ public enum Emoji {
     FOOD_FORK("\uD83C\uDF74"),
     FOOD_COFFEE("\u2615"),
 
+
+    FLAG_GEORGIA("\uD83C\uDDEC\uD83C\uDDEA"),
+    NAZAR("\uD83E\uDDFF"),
     NOTEPAD("\uD83D\uDCDD"),
     CHART("\uD83D\uDCCA"),
     PC("\uD83D\uDCBB"),
